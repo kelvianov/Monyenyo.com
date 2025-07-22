@@ -27,15 +27,13 @@ jobs:
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ secrets.CPANEL_HOST }}
-          username: ${{ secrets.CPANEL_USER }}
-          password: ${{ secrets.CPANEL_PASS }}
-          protocol: ftps
+          server: ${{ secrets.FTP_SERVER }} # IP atau domain hosting
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
           local-dir: dist/
-          server-dir: ${{ secrets.CPANEL_PATH }}/
+          server-dir: public_html/
           exclude: |
             **/.git*
             **/.github/**
             cgi-bin/**
-          # Uncomment after test if you want full wipe before upload:
-          # dangerous-clean-slate: true
