@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',   // Tambahkan ini supaya path asset relatif
+  base: '/',   // Tambahkan ini supaya path asset relatif
   plugins: [react()],
   server: {
     port: 3000,
