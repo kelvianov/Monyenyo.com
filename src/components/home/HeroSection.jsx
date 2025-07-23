@@ -17,7 +17,7 @@ const HeroSection = () => {
     {
       image: desktop1,
       subtitle: "Lembut. Gurih. Nagih.",
-      title: "NIKMAT GURIHNYA!<br />BOLU ABON MONYENYO"
+      title: "NIKMAT GURIHNYA!<br />BOLU ABON MONYENYOllllllfdlfd"
     },
     {
       image: desktop2,
