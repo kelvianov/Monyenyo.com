@@ -1,12 +1,5 @@
-# React/Vite SPA fallback
 Options -MultiViews
-DirectoryIndex index.html
 RewriteEngine On
-
-# Serve existing files/directories normally
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-# Otherwise send everything to index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [L]

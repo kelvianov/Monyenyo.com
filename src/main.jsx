@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HelmetProvider>
       <LanguageProvider>
-        <BrowserRouter basename="/~mvbatufc">
+        <BrowserRouter>
           <App />
         </BrowserRouter>
       </LanguageProvider>
