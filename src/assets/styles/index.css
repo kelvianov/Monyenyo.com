@@ -1,3 +1,6 @@
+html.no-smooth-scroll {
+    scroll-behavior: auto !important;
+}
 /* main.css hanya untuk style global, semua style komponen dipindah ke file masing-masing */
 /* CSS komponen diimpor langsung di file komponen masing */
 
@@ -19,6 +22,11 @@ a.logo-text,
 
 html {
     scroll-behavior: smooth;
+}
+
+body.mobile-menu-active,
+html.mobile-menu-active {
+    scroll-behavior: auto !important;
 }
 
 /* Desktop zoom 90% - Mobile tidak terpengaruh */
@@ -241,17 +249,13 @@ body {
     z-index: 999;
     opacity: 0;
     visibility: hidden;
-    /* NO TRANSITIONS - INSTANT */
-    transition: none !important;
-    animation: none !important;
+    transition: opacity 0.35s cubic-bezier(.4,0,.2,1), visibility 0.35s cubic-bezier(.4,0,.2,1);
 }
 
 .mobile-menu-overlay.active {
     opacity: 1;
     visibility: visible;
-    /* NO TRANSITIONS - INSTANT */
-    transition: none !important;
-    animation: none !important;
+    transition: opacity 0.35s cubic-bezier(.4,0,.2,1), visibility 0.35s cubic-bezier(.4,0,.2,1);
 }
 
 .mobile-menu {
@@ -262,18 +266,14 @@ body {
     height: 100%;
     background: white;
     padding: 20px;
-    transform: translateX(0); /* Always visible when overlay is active */
-    /* NO TRANSITIONS - INSTANT */
-    transition: none !important;
-    animation: none !important;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Saat overlay aktif, menu slide in */
 .mobile-menu-overlay.active .mobile-menu {
     transform: translateX(0);
-    /* NO TRANSITIONS - INSTANT */
-    transition: none !important;
-    animation: none !important;
 }
 
 .mobile-menu-header {
@@ -921,7 +921,7 @@ body {
 
 /* === UNIFIED FULLSCREEN MENU FOR ALL NAVBAR STATES === */
 @media (max-width: 900px) {
-  /* Force all mobile menu overlay to be identical and instant */
+  /* Force all mobile menu overlay and sidebar to be fullscreen and visible, but allow transitions for smoothness */
   .mobile-menu-overlay.active,
   .header.show-on-scroll-up .mobile-menu-overlay.active,
   .header.desktop-transparent .mobile-menu-overlay.active,
@@ -946,13 +946,10 @@ body {
     border: none !important;
     outline: none !important;
     overflow: hidden !important;
-    /* NO TRANSITIONS - INSTANT */
-    transition: none !important;
-    animation: none !important;
+    /* ALLOW TRANSITIONS for smoothness */
+    transition: opacity 0.35s cubic-bezier(.4,0,.2,1), visibility 0.35s cubic-bezier(.4,0,.2,1);
     transform: none !important;
   }
-  
-  /* Force all mobile menu sidebar to be identical and instant */
   .mobile-menu-overlay.active .mobile-menu,
   .header.show-on-scroll-up .mobile-menu-overlay.active .mobile-menu,
   .header.desktop-transparent .mobile-menu-overlay.active .mobile-menu,
@@ -975,12 +972,10 @@ body {
     overflow-y: auto !important;
     overflow-x: hidden !important;
     transform: translateX(0) !important;
-    /* NO TRANSITIONS - INSTANT */
-    transition: none !important;
-    animation: none !important;
+    /* ALLOW TRANSITIONS for smoothness */
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1) !important;
   }
-  
   /* Force body/html scroll lock when menu is active - ONLY overflow hidden, keep content visible */
   html:has(.mobile-menu-overlay.active),
   body:has(.mobile-menu-overlay.active),
@@ -1570,49 +1565,62 @@ body {
 /* === FINAL FORCE: Mobile Menu Overlay Unified & Instant === */
 /* Ensure all mobile menu overlays are identical across all pages */
 @media (max-width: 900px) {
-  /* Force remove all transitions and animations from ALL mobile menu elements */
-  .mobile-menu-overlay,
+  /* Force all mobile menu overlay and sidebar to be fullscreen and visible, but allow transitions for smoothness */
   .mobile-menu-overlay.active,
-  .mobile-menu,
-  .mobile-menu-overlay.active .mobile-menu,
-  .hamburger-menu,
-  .hamburger-menu span,
-  .mobile-nav-link,
-  .mobile-social-link {
-    transition: none !important;
-    animation: none !important;
-    -webkit-transition: none !important;
-    -webkit-animation: none !important;
-  }
-  
-  /* Force instant appearance for all mobile menu overlay states */
-  .mobile-menu-overlay.active,
-  .header .mobile-menu-overlay.active,
   .header.show-on-scroll-up .mobile-menu-overlay.active,
   .header.desktop-transparent .mobile-menu-overlay.active,
-  .header.desktop-solid .mobile-menu-overlay.active,
-  .header.hide-on-scroll .mobile-menu-overlay.active {
+  .header.desktop-solid .mobile-menu-overlay.active {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 200vw !important;
+    height: 200vh !important;
+    min-height: 200dvh !important;
+    max-width: 200vw !important;
+    max-height: 200vh !important;
+    background: rgba(0,0,0,0.8) !important;
+    z-index: 2147483647 !important;
+    display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
-    display: block !important;
-    background: rgba(0,0,0,0.8) !important;
-    transform: none !important;
-    transition: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    overflow: hidden !important;
+    /* ALLOW TRANSITIONS for smoothness */
+    transition: opacity 0.35s cubic-bezier(.4,0,.2,1), visibility 0.35s cubic-bezier(.4,0,.2,1);
     animation: none !important;
+    transform: none !important;
   }
-  
-  /* Force instant sidebar appearance for all states */
   .mobile-menu-overlay.active .mobile-menu,
-  .header .mobile-menu-overlay.active .mobile-menu,
   .header.show-on-scroll-up .mobile-menu-overlay.active .mobile-menu,
   .header.desktop-transparent .mobile-menu-overlay.active .mobile-menu,
-  .header.desktop-solid .mobile-menu-overlay.active .mobile-menu,
-  .header.hide-on-scroll .mobile-menu-overlay.active .mobile-menu {
-    transform: translateX(0) !important;
-    transition: none !important;
-    animation: none !important;
-    background: #fff !important;
+  .header.desktop-solid .mobile-menu-overlay.active .mobile-menu {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
     width: 280px !important;
+    height: 200vh !important;
+    min-height: 100dvh !important;
+    max-height: 200vh !important;
+    background: #fff !important;
+    z-index: 2147483648 !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    border: none !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    transform: translateX(0) !important;
+    /* ALLOW TRANSITIONS for smoothness */
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+    animation: none !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1) !important;
   }
 }
 /* === END FINAL FORCE === */

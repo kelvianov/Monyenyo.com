@@ -43,43 +43,50 @@ const Header = () => {
   useNavbarScroll()
 
   // Enhanced mobile menu functionality
+  // Simpan posisi scroll secepat mungkin sebelum apapun berubah
+  const saveScrollPosition = () => {
+    lastScrollPosition.current = window.scrollY
+  }
   const handleHamburgerClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    
     if (isMenuOpen) {
       closeMobileMenu()
     } else {
-      lastScrollPosition.current = window.scrollY
       setIsMenuOpen(true)
-      
-      // Add class to body for CSS targeting
-      document.body.classList.add('mobile-menu-active')
-      
-      // Prevent body scroll
-      document.body.style.position = 'fixed'
-      document.body.style.top = `-${lastScrollPosition.current}px`
-      document.body.style.left = '0'
-      document.body.style.right = '0'
-      document.body.style.width = '100%'
-      document.body.style.overflow = 'hidden'
+      window.requestAnimationFrame(() => {
+        document.body.classList.add('mobile-menu-active')
+        document.body.style.position = 'fixed'
+        document.body.style.top = `-${lastScrollPosition.current}px`
+        document.body.style.left = '0'
+        document.body.style.right = '0'
+        document.body.style.width = '100%'
+        document.body.style.overflow = 'hidden'
+      })
     }
   }
 
   const closeMobileMenu = () => {
     setIsMenuOpen(false)
-    
-    // Remove class from body
     document.body.classList.remove('mobile-menu-active')
-    
-    // Restore body scroll
+    // Reset style body DULU
     document.body.style.position = ''
     document.body.style.top = ''
     document.body.style.left = ''
     document.body.style.right = ''
     document.body.style.width = ''
     document.body.style.overflow = ''
-    window.scrollTo(0, lastScrollPosition.current)
+    // Paksa scroll-behavior: auto di html sebelum scrollTo
+    document.documentElement.classList.add('no-smooth-scroll')
+    setTimeout(() => {
+      if (window.scrollY !== lastScrollPosition.current) {
+        window.scrollTo({ top: lastScrollPosition.current, left: 0, behavior: 'auto' })
+      }
+      // Hapus class setelah scrollTo (beri delay kecil agar pasti instant)
+      setTimeout(() => {
+        document.documentElement.classList.remove('no-smooth-scroll')
+      }, 32)
+    }, 0)
   }
 
   // Handle escape key and cleanup
@@ -137,13 +144,14 @@ const Header = () => {
         {/* Hamburger Menu Button (Mobile Only) */}
         <button 
           className={`hamburger-menu ${isMenuOpen ? 'active menu-open' : ''}`}
+          onMouseDown={saveScrollPosition}
+          onTouchStart={saveScrollPosition}
           onClick={handleHamburgerClick}
-          onTouchStart={handleHamburgerClick}
           aria-label="Toggle menu"
         >
-          <span onClick={handleHamburgerClick} onTouchStart={handleHamburgerClick}></span>
-          <span onClick={handleHamburgerClick} onTouchStart={handleHamburgerClick}></span>
-          <span onClick={handleHamburgerClick} onTouchStart={handleHamburgerClick}></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
 
         {/* Social Media Icons */}
