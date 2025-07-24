@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import logoImg from '../../assets/images/logo.png';
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useLanguage } from '../../hooks/useLanguage'
 import { useNavbarScroll } from '../../hooks/useNavbarScroll'
 import './Header.css'
@@ -12,6 +12,7 @@ const Header = () => {
   const [isNavbarSolid, setIsNavbarSolid] = useState(false);
 
   const location = useLocation()
+  const navigate = useNavigate()
   useEffect(() => {
     const updateNavbarSolid = () => {
       const isDesktop = window.innerWidth > 768;
@@ -219,7 +220,23 @@ const Header = () => {
 
         {/* Logo */}
         <div className="nav-logo">
-          <Link to="/" className="logo-text" onClick={handleHomeClick}>
+          <Link to="/" className="logo-text" onClick={async (e) => {
+            e.preventDefault();
+            if (location.pathname === '/') {
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+            } else {
+              closeMobileMenu();
+              // Use navigate to go to home, then scroll to top after navigation
+              navigate('/');
+              setTimeout(() => {
+                document.documentElement.classList.add('no-smooth-scroll');
+                window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+                setTimeout(() => {
+                  document.documentElement.classList.remove('no-smooth-scroll');
+                }, 32);
+              }, 100);
+            }
+          }}>
             <img src={logoImg} alt="Monyenyo Logo" className="desktop-navbar-logo" style={{ height: 42, width: 160 }} />
           </Link>
         </div>
