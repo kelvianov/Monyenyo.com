@@ -113,11 +113,14 @@ const Header = () => {
   }, [isMenuOpen])
 
   const handleHomeClick = (e) => {
-    if (location.pathname === '/') {
-      e.preventDefault()
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-    closeMobileMenu()
+    closeMobileMenu();
+    setTimeout(() => {
+      document.documentElement.classList.add('no-smooth-scroll');
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      setTimeout(() => {
+        document.documentElement.classList.remove('no-smooth-scroll');
+      }, 32);
+    }, 100);
   }
 
   // Handle navigation with scroll to top
