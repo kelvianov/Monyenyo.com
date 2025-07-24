@@ -85,6 +85,12 @@ const Header = () => {
       // Hapus class setelah scrollTo (beri delay kecil agar pasti instant)
       setTimeout(() => {
         document.documentElement.classList.remove('no-smooth-scroll')
+        // --- FORCE header update after menu close (mobile) ---
+        // This will force the header to update its class (solid/coklat) instantly
+        if (typeof window !== 'undefined') {
+          const event = new window.Event('scroll');
+          window.dispatchEvent(event);
+        }
       }, 32)
     }, 0)
   }
