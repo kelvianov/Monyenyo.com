@@ -1,3 +1,11 @@
+@media (max-width: 768px) {
+  .about-hero {
+    margin-top: 40px;
+  }
+  .blogs-page > section:last-child {
+    margin-bottom: 100px;
+  }
+}
 /* Professional Blog Styles for Monyenyo */
 
 /* Hide logo/title and hamburger menu ONLY when at top of Blogs page (transparent header) */
