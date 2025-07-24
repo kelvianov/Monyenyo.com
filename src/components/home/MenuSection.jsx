@@ -14,12 +14,13 @@ import desktop6 from '../../assets/images/desktop6.jpg';
 const MenuSection = () => {
   const { t } = useLanguage()
   
+  const promoHTML = '<br/><span class="promo-badge promo-pulse">Click promo spesial!</span>';
   const menuItems = [
     {
       id: 1,
       image: desktop1,
       name: t('Bolu Abon Sapi'),
-      description: t("Bolu abon sapi bertekstur lembut dengan taburan abon premium dan cita rasa gurih-manis yang seimbang. Satu box isi 6 potong."),
+      description: t("Bolu abon sapi bertekstur lembut dengan taburan abon premium dan cita rasa gurih-manis yang seimbang. Satu box isi 6 potong.") + promoHTML,
       price: 'Rp 45,000',
       category: t('Bolu'),
       rating: '4.9',
@@ -29,7 +30,7 @@ const MenuSection = () => {
       id: 2,
       image: desktop2,
       name: t('Brownies Pastry Original'),
-      description: t('Brownies fudgy dibalut dengan pastry olahan bertekstur kenyal menghadirkan rasa cokelat yang kaya dan manisnya pas di setiap gigitannya.'),
+      description: t('Brownies fudgy dibalut dengan pastry olahan bertekstur kenyal menghadirkan rasa cokelat yang kaya dan manisnya pas di setiap gigitannya.') + promoHTML,
       price: 'Rp 62,000',
       category: t('Pastry'),
       rating: '4.8',
@@ -39,7 +40,7 @@ const MenuSection = () => {
       id: 3,
       image: desktop3,
       name: t('Choco Roll Cocol'),
-      description: t('Cokelat batang pilihan dibalut pastry olahan, dengan cocolan pilihan varian stroberi dan vanila yang manis. Satu box isi 6 potong.'),
+      description: t('Cokelat batang pilihan dibalut pastry olahan, dengan cocolan pilihan varian stroberi dan vanila yang manis. Satu box isi 6 potong.') + promoHTML,
       price: 'Rp 55,000',
       category: t('Pastry'),
       rating: '5.0',
@@ -49,7 +50,7 @@ const MenuSection = () => {
       id: 4,
       image: desktop4,
       name: t('Brownies Pastry Tabur Keju'),
-      description: t('Brownies fudgy dengan keju serut berlimpah, dibalut pastry dengan rasa nyoklat, gurih, dan manis pas.'),
+      description: t('Brownies fudgy dengan keju serut berlimpah, dibalut pastry dengan rasa nyoklat, gurih, dan manis pas.') + promoHTML,
       price: 'Rp 65,000',
       category: t('Pastry'),
       rating: '5.0',
@@ -59,7 +60,7 @@ const MenuSection = () => {
       id: 5,
       image: desktop5,
       name: t('Cheese Roll Cocol'),
-      description: t('Perpaduan keju batang pilihan dan pastry lembut dengan varian cocolan stroberi atau vanila. Satu box isi 10 potong.'),
+      description: t('Perpaduan keju batang pilihan dan pastry lembut dengan varian cocolan stroberi atau vanila. Satu box isi 10 potong.') + promoHTML,
       price: 'Rp 55,000',
       category: t('Pastry'),
       rating: '5.0',
@@ -69,7 +70,7 @@ const MenuSection = () => {
       id: 6,
       image: desktop6,
       name: t('Banana Strudel Mini'),
-      description: t('Perpaduan pisang, cokelat, dan keju dalam pastry panggang yang renyah, dengan rasa manis dan gurih seimbang. Satu box isi 6 potong.'),
+      description: t('Perpaduan pisang, cokelat, dan keju dalam pastry panggang yang renyah, dengan rasa manis dan gurih seimbang. Satu box isi 6 potong.') + promoHTML,
       price: 'Rp 55,000',
       category: t('Pastry'),
       rating: '5.0',
@@ -107,7 +108,7 @@ const MenuSection = () => {
                 </div>
                 <div className="menu-section-content">
                   <h3 className="menu-section-name">{item.name}</h3>
-                  <p className="menu-section-desc">{item.description}</p>
+                  <p className="menu-section-desc" dangerouslySetInnerHTML={{ __html: item.description }} />
                   <div className="menu-section-details">
                     <span className="menu-section-category">{item.category}</span>
                     <div className="menu-section-rating">

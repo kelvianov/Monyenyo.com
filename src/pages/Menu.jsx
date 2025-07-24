@@ -26,12 +26,13 @@ const Menu = () => {
     }
   }, [])
 
+  const promoHTML = '<br/><span class="promo-badge promo-pulse">Click Promo Spesial!</span>';
   const menuItems = [
     {
       id: 1,
       image: desktop1,
       name: t('Bolu Abon Sapi'),
-      desc: t("Bolu abon sapi bertekstur lembut dengan taburan abon premium dan cita rasa gurih-manis yang seimbang. Satu box isi 6 potong."),
+      desc: t("Bolu abon sapi bertekstur lembut dengan taburan abon premium dan cita rasa gurih-manis yang seimbang. Satu box isi 6 potong.") + promoHTML,
       price: 45000,
       category: t('Bolu'),
       rating: 4.9,
@@ -41,7 +42,7 @@ const Menu = () => {
       id: 2,
       image: desktop2,
       name: t('Brownies Pastry Original'),
-      desc: t('Brownies fudgy dibalut dengan pastry olahan bertekstur kenyal menghadirkan rasa cokelat yang kaya dan manisnya pas di setiap gigitannya.'),
+      desc: t('Brownies fudgy dibalut dengan pastry olahan bertekstur kenyal menghadirkan rasa cokelat yang kaya dan manisnya pas di setiap gigitannya.') + promoHTML,
       price: 62000,
       category: t('Pastry'),
       rating: 4.8,
@@ -51,7 +52,7 @@ const Menu = () => {
       id: 3,
       image: desktop3,
       name: t('Choco Roll Cocol'),
-      desc: t('Cokelat batang pilihan dibalut pastry olahan, dengan cocolan pilihan varian stroberi dan vanila yang manis. Satu box isi 6 potong.'),
+      desc: t('Cokelat batang pilihan dibalut pastry olahan, dengan cocolan pilihan varian stroberi dan vanila yang manis. Satu box isi 6 potong.') + promoHTML,
       price: 55000,
       category: t('Pastry'),
       rating: 4.9,
@@ -61,7 +62,7 @@ const Menu = () => {
       id: 4,
       image: desktop4,
       name: t('Brownies Pastry Tabur Keju'),
-      desc: t('Brownies fudgy dengan keju serut berlimpah, dibalut pastry dengan rasa nyoklat, gurih, dan manis pas.'),
+      desc: t('Brownies fudgy dengan keju serut berlimpah, dibalut pastry dengan rasa nyoklat, gurih, dan manis pas.') + promoHTML,
       price: 65000,
       category: t('Pastry'),
       rating: 5.0,
@@ -71,7 +72,7 @@ const Menu = () => {
       id: 5,
       image: desktop5,
       name: t('Cheese Roll Cocol'),
-      desc: t('Perpaduan keju batang pilihan dan pastry lembut dengan varian cocolan stroberi atau vanila. Satu box isi 10 potong.'),
+      desc: t('Perpaduan keju batang pilihan dan pastry lembut dengan varian cocolan stroberi atau vanila. Satu box isi 10 potong.') + promoHTML,
       price: 55000,
       category: t('Pastry'),
       rating: 5.0,
@@ -81,7 +82,7 @@ const Menu = () => {
       id: 6,
       image: desktop6,
       name: t('Banana Strudel Mini'),
-      desc: t('Perpaduan pisang, cokelat, dan keju dalam pastry panggang yang renyah, dengan rasa manis dan gurih seimbang. Satu box isi 6 potong.'),
+      desc: t('Perpaduan pisang, cokelat, dan keju dalam pastry panggang yang renyah, dengan rasa manis dan gurih seimbang. Satu box isi 6 potong.') + promoHTML,
       price: 55000,
       category: t('Pastry'),
       rating: 5.0,  
@@ -90,7 +91,7 @@ const Menu = () => {
     {
       id: 7,
       name: t('Soft Cookies'),
-      desc: t('Cookies lembut dengan rasa cokelat dan sensasi susu yang nikmat. Satu box isi 6 potongan.'),
+      desc: t('Cookies lembut dengan rasa cokelat dan sensasi susu yang nikmat. Satu box isi 6 potongan.') + promoHTML,
       category: t('Cookies'),
       price: 55000,
       image: menu7,
@@ -100,7 +101,7 @@ const Menu = () => {
     {
       id: 8,
       name: t('Brownies Fudgy Sekat'),
-      desc: t('Brownies fudgy dengan 5 varian topping bikin nyemil banyak pilihan rasa.'),
+      desc: t('Brownies fudgy dengan 5 varian topping bikin nyemil banyak pilihan rasa.') + promoHTML,
       category: t('Bolu'),
       price: 78000,
       image: menu8,
@@ -159,9 +160,11 @@ const Menu = () => {
                     </div>
                     <div className="menu-content">
                       <h3 className="menu-name">{item.name}</h3>
-                      <p className="menu-desc">
-                        {item.desc}
-                      </p>
+                      {item.desc.includes('<span') ? (
+                        <p className="menu-desc" dangerouslySetInnerHTML={{ __html: item.desc }} />
+                      ) : (
+                        <p className="menu-desc">{item.desc}</p>
+                      )}
                       <div className="menu-details">
                         <span className="menu-category">{item.category}</span>
                         <div className="menu-rating">

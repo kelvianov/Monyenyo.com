@@ -1,11 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useLanguage } from '../hooks/useLanguage'
 import './Blogs.css'
 
 
+
 const Blogs = () => {
   const { t } = useLanguage()
+
+  // Apply Blogs page styles to header/navbar
+  useEffect(() => {
+    document.body.classList.add('blogs-page')
+    return () => {
+      document.body.classList.remove('blogs-page')
+    }
+  }, [])
+
   return (
     <>
       <Helmet>
